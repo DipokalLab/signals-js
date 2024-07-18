@@ -1,0 +1,24 @@
+{
+  "name": "@dipokalhhj/signals-js",
+  "type": "module",
+  "collaborators": [
+    "DipokalLab"
+  ],
+  "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DipokalLab/signals-js"
+  },
+  "files": [
+    "signals_js_bg.wasm",
+    "signals_js.js",
+    "signals_js_bg.js",
+    "signals_js.d.ts"
+  ],
+  "main": "signals_js.js",
+  "types": "signals_js.d.ts",
+  "sideEffects": [
+    "./signals_js.js",
+    "./snippets/*"
+  ]
+}
