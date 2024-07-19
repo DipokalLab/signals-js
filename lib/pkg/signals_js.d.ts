@@ -2,5 +2,11 @@
 /* eslint-disable */
 /**
 * @param {string} name
+* @returns {string}
 */
-export function greet(name: string): void;
+export function ping(name: string): string;
+/**
+* @param {string} name
+* @returns {string}
+*/
+export function test(name: string): string;

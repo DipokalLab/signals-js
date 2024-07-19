@@ -1,3 +1,4 @@
 /lib/target
 /node_modules
 /example/node_modules
+/lib/pkg/.gitignore
