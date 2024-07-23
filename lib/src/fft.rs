@@ -2,6 +2,32 @@
 pub mod fft_mod {
     use crate::complex::{self, complex::ComplexType};
 
+    pub fn ifft(array: &Vec<ComplexType>) -> Vec<ComplexType> {
+        let n: usize = array.len();
+
+        let mut data: Vec<ComplexType> = Vec::new();
+        
+        for (index, value) in array.iter().enumerate() {
+            data.push(ComplexType {
+                real: array[index].real,
+                imag: -array[index].imag
+            });
+        }
+
+        let fft_result = fft(&data);
+
+        let mut fft_data: Vec<ComplexType> = Vec::new();
+        
+        for (index, value) in array.iter().enumerate() {
+            fft_data.push(ComplexType {
+                real: fft_result[index].real * (1/n) as f64,
+                imag: -fft_result[index].imag * (1/n) as f64
+            });
+        }
+
+        return fft_result;
+    }
+
     pub fn fft(array: &Vec<ComplexType>) -> Vec<ComplexType> {
         let n: usize = array.len();
 

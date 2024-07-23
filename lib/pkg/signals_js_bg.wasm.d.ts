@@ -5,6 +5,7 @@ export function ping(a: number, b: number, c: number): void;
 export function test(a: number, b: number, c: number): void;
 export function return_array(a: number, b: number): number;
 export function fft(a: number, b: number): number;
+export function ifft(a: number, b: number): number;
 export function __wbindgen_add_to_stack_pointer(a: number): number;
 export function __wbindgen_malloc(a: number, b: number): number;
 export function __wbindgen_realloc(a: number, b: number, c: number, d: number): number;

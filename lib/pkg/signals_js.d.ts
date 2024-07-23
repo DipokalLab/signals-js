@@ -20,3 +20,8 @@ export function return_array(x: Float64Array): Uint32Array;
 * @returns {Float64Array}
 */
 export function fft(x: Float64Array): Float64Array;
+/**
+* @param {Float64Array} x
+* @returns {Float64Array}
+*/
+export function ifft(x: Float64Array): Float64Array;

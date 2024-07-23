@@ -6,14 +6,16 @@ js.then((js) => {
 
   let adfgv = new Float64Array(2 ** 12);
   for (let index = 0; index < 2 ** 12; index++) {
-    adfgv[index] = Math.sin(index / 10) * 10 + Math.cos(index / 300);
+    adfgv[index] = Math.sin(index / 50) * 10;
   }
 
   console.time("FFT");
-  let ff = js.fft(adfgv);
+  let fft = js.fft(adfgv);
   console.timeEnd("FFT");
 
   const ctx = document.getElementById("myChart");
+  const ictx = document.getElementById("imyChart");
+
   const octx = document.getElementById("ORGmyChart");
 
   new Chart(octx, {
@@ -24,7 +26,7 @@ js.then((js) => {
       }),
       datasets: [
         {
-          label: "# of Votes",
+          label: "SIN",
           data: adfgv,
           borderWidth: 1,
         },
@@ -42,13 +44,38 @@ js.then((js) => {
   new Chart(ctx, {
     type: "line",
     data: {
-      labels: ff.map((item) => {
+      labels: fft.map((item) => {
         return item;
       }),
       datasets: [
         {
-          label: "# of Votes",
-          data: ff,
+          label: "FFT",
+          data: fft,
+          borderWidth: 1,
+        },
+      ],
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+        },
+      },
+    },
+  });
+
+  let ifft = js.ifft(fft);
+
+  new Chart(ictx, {
+    type: "line",
+    data: {
+      labels: ifft.map((item) => {
+        return item;
+      }),
+      datasets: [
+        {
+          label: "IFFT",
+          data: ifft,
           borderWidth: 1,
         },
       ],

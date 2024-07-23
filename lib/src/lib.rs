@@ -85,3 +85,19 @@ pub fn fft(x: &[f64]) -> js_sys::Float64Array {
 
     return js_sys::Float64Array::from(&flat_data[..]);
 }
+
+#[wasm_bindgen]
+pub fn ifft(x: &[f64]) -> js_sys::Float64Array {
+    let mut data = Vec::new();
+    for i in x {
+        data.push(ComplexType {
+            real: *i,
+            imag: 0.0
+        })
+    }
+    let ifft_data = fft::fft_mod::ifft(&data);
+
+    let flat_data = complex::complex::complex_to_flat(&ifft_data);
+
+    return js_sys::Float64Array::from(&flat_data[..]);
+}
