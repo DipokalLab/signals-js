@@ -8,8 +8,8 @@ JavaScript WebAssembly 환경에서 동작하는 신호처리 함수 구현체 �
 
 ## To-Do
 
-- [ ] Radix 2 FFT
-- [ ] IFFT
+- [x] Radix 2 FFT
+- [ ] Inverse FFT
 - [ ] STFT
 - [ ] ISTFT
 - [ ] Gaussian filter
