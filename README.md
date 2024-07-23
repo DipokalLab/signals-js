@@ -16,3 +16,7 @@ JavaScript WebAssembly 환경에서 동작하는 신호처리 함수 구현체 �
 - [ ] Kalman filter
 - [ ] Hamming Window Function for FFT
 - [ ] Spectrogram View
+
+## Reference
+
+[Cooley-Tukey FFT Algorithms](https://people.scs.carleton.ca/~maheshwa/courses/5703COMP/16Fall/FFT_Report.pdf)
