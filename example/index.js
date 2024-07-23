@@ -4,10 +4,9 @@ js.then((js) => {
   //   let b = js.test("dsfc");
   //   let c = js.return_array(new Float64Array(100));
 
-  let adfgv = new Float64Array(2 ** 14);
-  for (let index = 0; index < 2 ** 14; index++) {
-    adfgv[index] =
-      Math.sin(index / 10) * 10 + Math.cos(index / 300) * Math.random() * 80;
+  let adfgv = new Float64Array(2 ** 12);
+  for (let index = 0; index < 2 ** 12; index++) {
+    adfgv[index] = Math.sin(index / 10) * 10 + Math.cos(index / 300);
   }
 
   console.time("FFT");
