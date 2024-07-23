@@ -1,8 +1,21 @@
 
 pub mod complex {
+
+
+    #[derive(Clone)]
     pub struct ComplexType {
         pub real: f64,
         pub imag: f64,
+    }
+
+    pub fn complex_to_flat(data: &[ComplexType]) -> Vec<f64> {
+        let mut arr = Vec::new();
+
+        for item in data {
+            arr.push(item.real);
+        }
+
+        return arr;
     }
     
     pub fn add(origin: &ComplexType, target: &ComplexType) -> ComplexType {

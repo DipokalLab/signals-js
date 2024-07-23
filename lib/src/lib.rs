@@ -1,5 +1,8 @@
+use complex::complex::ComplexType;
 use wasm_bindgen::prelude::*;
 mod complex;
+mod fft;
+use js_sys::Uint32Array;
 
 #[wasm_bindgen]
 extern {
@@ -51,4 +54,36 @@ pub fn test(name: &str) -> String {
     log(&result3.real.to_string());
 
     return format!("Hello, {}!", name);
+}
+
+
+#[wasm_bindgen]
+pub fn return_array(x: &[f64]) -> js_sys::Uint32Array {
+    for i in x {
+        log(&i.to_string());
+    }
+
+    let mut data: Vec<u32> = Vec::new();
+    data.push(1);
+    data.push(2);
+    data.push(3);
+
+    return js_sys::Uint32Array::from(&data[..]);
+}
+
+#[wasm_bindgen]
+pub fn fft(x: &[f64]) -> js_sys::Float64Array {
+    let n = x.len();
+    let mut data = Vec::new();
+    for i in x {
+        data.push(ComplexType {
+            real: *i,
+            imag: 0.0
+        })
+    }
+    let mut fft_data = fft::fftMod::fft(&data);
+
+    let mut flat_data = complex::complex::complex_to_flat(&fft_data);
+
+    return js_sys::Float64Array::from(&flat_data[..]);
 }
