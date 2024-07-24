@@ -10,12 +10,12 @@ JavaScript WebAssembly 환경에서 동작하는 신호처리 함수 구현체 �
 
 - [x] Radix 2 FFT
 - [x] Inverse FFT
-- [ ] STFT
-- [ ] ISTFT
+- [ ] Continuous Wavelet transform
 - [ ] Gaussian filter
 - [ ] Kalman filter
 - [ ] Hamming Window Function for FFT
 - [ ] Zero Padding
+- [ ] Fast and Lightweight Line Graph
 - [ ] Spectrogram View
 
 ## Reference

@@ -18,78 +18,165 @@ js.then((js) => {
 
   const octx = document.getElementById("ORGmyChart");
 
-  new Chart(octx, {
-    type: "line",
-    data: {
-      labels: adfgv.map((item) => {
-        return item;
-      }),
-      datasets: [
-        {
-          label: "SIN",
-          data: adfgv,
-          borderWidth: 1,
-        },
-      ],
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true,
-        },
-      },
-    },
-  });
+  drawChart(
+    "SIN",
+    adfgv.map((item) => {
+      return item;
+    }),
+    octx
+  );
 
-  new Chart(ctx, {
-    type: "line",
-    data: {
-      labels: fft.map((item) => {
-        return item;
-      }),
-      datasets: [
-        {
-          label: "FFT",
-          data: fft,
-          borderWidth: 1,
-        },
-      ],
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true,
-        },
-      },
-    },
-  });
+  drawChart(
+    "FFT",
+    fft.map((item) => {
+      return item;
+    }),
+    ctx
+  );
 
   let ifft = js.ifft(fft);
 
-  new Chart(ictx, {
-    type: "line",
-    data: {
-      labels: ifft.map((item) => {
-        return item;
-      }),
-      datasets: [
-        {
-          label: "IFFT",
-          data: ifft,
-          borderWidth: 1,
-        },
-      ],
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true,
-        },
-      },
-    },
-  });
+  drawChart(
+    "IFFT",
+    ifft.map((item) => {
+      return item;
+    }),
+    ictx
+  );
 
   //   console.log("PONG", a);
   //   console.log("SDFADDA", b);
   //   console.log("SFS", c);
 });
+
+function drawChart(label, list, ctx) {
+  new Chart(ctx, {
+    type: "line",
+    data: {
+      labels: list,
+      datasets: [
+        {
+          label: label,
+          data: list,
+          borderWidth: 1,
+        },
+      ],
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+        },
+      },
+    },
+  });
+}
+
+const ctx = document.getElementById("CVS");
+
+let l = [];
+const d = new Chart(ctx, {
+  type: "line",
+  data: {
+    labels: l,
+
+    datasets: [
+      {
+        data: l,
+        borderWidth: 1,
+      },
+    ],
+  },
+  options: {
+    animation: false,
+    scales: {
+      y: {
+        beginAtZero: true,
+      },
+    },
+  },
+});
+
+const fftctx = document.getElementById("fftCVS");
+
+let fftl = [];
+const fftd = new Chart(fftctx, {
+  type: "line",
+  data: {
+    labels: fftl,
+
+    datasets: [
+      {
+        data: fftl,
+        borderWidth: 1,
+      },
+    ],
+  },
+  options: {
+    animation: false,
+    scales: {
+      y: {
+        beginAtZero: true,
+      },
+    },
+  },
+});
+
+export function getFFT(arr) {
+  const prm = new Promise((resolve, reject) => {
+    js.then((js) => {
+      resolve(js.fft(arr));
+    });
+  });
+
+  return prm;
+}
+
+async function setupAudio() {
+  const canvas = document.getElementById("oscilloscope");
+  const canvasCtx = canvas.getContext("2d");
+
+  // Get access to the microphone
+  const stream = await navigator.mediaDevices.getUserMedia({
+    audio: true,
+  });
+  const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+  const source = audioContext.createMediaStreamSource(stream);
+  const analyser = audioContext.createAnalyser();
+
+  analyser.fftSize = 1024;
+  const bufferLength = analyser.fftSize;
+  const dataArray = new Uint8Array(bufferLength);
+
+  source.connect(analyser);
+
+  function draw() {
+    requestAnimationFrame(draw);
+
+    analyser.getByteTimeDomainData(dataArray);
+
+    getFFT(dataArray).then((result) => {
+      fftl = [];
+      for (let index = 1; index < result.length / 2; index++) {
+        fftl.push(result[index] - 128);
+      }
+      fftd.data.datasets[0].data = fftl;
+      fftd.data.labels = fftl;
+      fftd.update();
+    });
+
+    for (let index = 0; index < dataArray.length; index++) {
+      l.push(dataArray[index] - 128);
+      if (l.length > 2 ** 13) {
+        l.shift();
+      }
+    }
+    d.data.datasets[0].data = l;
+    d.data.labels = l;
+    d.update();
+  }
+
+  draw();
+}
+
+setupAudio();
