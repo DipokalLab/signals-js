@@ -1,4 +1,5 @@
 {
+  "type": "module",
   "name": "signals-js",
   "version": "1.0.0",
   "description": "",
@@ -8,7 +9,9 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build-wasm": "cd lib && wasm-pack build --scope dipokalhhj",
+    "build": "concurrently \"npm run build:wasm\" \"npm run build:ts\"",
+    "build:wasm": "cd lib && wasm-pack build --scope dipokalhhj",
+    "build:ts": "webpack --mode=development",
     "dev": "cd example && npm run serve"
   },
   "repository": {
@@ -20,5 +23,11 @@
   "bugs": {
     "url": "https://github.com/DipokalLab/signals-js/issues"
   },
-  "homepage": "https://github.com/DipokalLab/signals-js#readme"
+  "homepage": "https://github.com/DipokalLab/signals-js#readme",
+  "dependencies": {
+    "ts-loader": "^9.5.1"
+  },
+  "devDependencies": {
+    "webpack-cli": "^5.1.4"
+  }
 }
