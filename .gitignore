@@ -3,3 +3,5 @@
 /example/node_modules
 /lib/pkg/.gitignore
 /dist
+/target
+/pkg

@@ -1,4 +1,5 @@
-const js = import("../lib/pkg/signals_js.js");
+const js = import("../pkg/core.js");
+
 js.then((js) => {
   //   let a = js.ping("Hello world");
   //   let b = js.test("dsfc");
@@ -122,7 +123,7 @@ const fftd = new Chart(fftctx, {
   },
 });
 
-export function getFFT(arr) {
+function getFFT(arr) {
   const prm = new Promise((resolve, reject) => {
     js.then((js) => {
       resolve(js.fft(arr));
@@ -133,50 +134,53 @@ export function getFFT(arr) {
 }
 
 async function setupAudio() {
-  const canvas = document.getElementById("oscilloscope");
-  const canvasCtx = canvas.getContext("2d");
+  js.then(async (js) => {
+    const canvas = document.getElementById("oscilloscope");
+    const canvasCtx = canvas.getContext("2d");
 
-  // Get access to the microphone
-  const stream = await navigator.mediaDevices.getUserMedia({
-    audio: true,
-  });
-  const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-  const source = audioContext.createMediaStreamSource(stream);
-  const analyser = audioContext.createAnalyser();
-
-  analyser.fftSize = 1024;
-  const bufferLength = analyser.fftSize;
-  const dataArray = new Uint8Array(bufferLength);
-
-  source.connect(analyser);
-
-  function draw() {
-    requestAnimationFrame(draw);
-
-    analyser.getByteTimeDomainData(dataArray);
-
-    getFFT(dataArray).then((result) => {
-      fftl = [];
-      for (let index = 1; index < result.length / 2; index++) {
-        fftl.push(result[index] - 128);
-      }
-      fftd.data.datasets[0].data = fftl;
-      fftd.data.labels = fftl;
-      fftd.update();
+    // Get access to the microphone
+    const stream = await navigator.mediaDevices.getUserMedia({
+      audio: true,
     });
+    const audioContext = new (window.AudioContext ||
+      window.webkitAudioContext)();
+    const source = audioContext.createMediaStreamSource(stream);
+    const analyser = audioContext.createAnalyser();
 
-    for (let index = 0; index < dataArray.length; index++) {
-      l.push(dataArray[index] - 128);
-      if (l.length > 2 ** 13) {
-        l.shift();
+    analyser.fftSize = 1024;
+    const bufferLength = analyser.fftSize;
+    const dataArray = new Uint8Array(bufferLength);
+
+    source.connect(analyser);
+
+    function draw() {
+      requestAnimationFrame(draw);
+
+      analyser.getByteTimeDomainData(dataArray);
+
+      js.fft(dataArray).then((result) => {
+        fftl = [];
+        for (let index = 1; index < result.length / 2; index++) {
+          fftl.push(result[index] - 128);
+        }
+        fftd.data.datasets[0].data = fftl;
+        fftd.data.labels = fftl;
+        fftd.update();
+      });
+
+      for (let index = 0; index < dataArray.length; index++) {
+        l.push(dataArray[index] - 128);
+        if (l.length > 2 ** 13) {
+          l.shift();
+        }
       }
+      d.data.datasets[0].data = l;
+      d.data.labels = l;
+      d.update();
     }
-    d.data.datasets[0].data = l;
-    d.data.labels = l;
-    d.update();
-  }
 
-  draw();
+    draw();
+  });
 }
 
 setupAudio();

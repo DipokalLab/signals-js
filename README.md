@@ -18,6 +18,22 @@ JavaScript WebAssembly 환경에서 동작하는 신호처리 함수 구현체 �
 - [ ] Fast and Lightweight Line Graph
 - [ ] Spectrogram View
 
+## Build
+
+```
+npm run build
+```
+
+## Run Example
+
+Install pkg
+
+```
+cd example && npm install ../pkg
+```
+
+`cd example && npm run serve` or `npm run dev`
+
 ## Reference
 
 [Cooley-Tukey FFT Algorithms](https://people.scs.carleton.ca/~maheshwa/courses/5703COMP/16Fall/FFT_Report.pdf)

@@ -12,5 +12,8 @@
     "webpack-dev-server": "^3.1.10"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "signals-js": "file:../pkg"
+  }
 }

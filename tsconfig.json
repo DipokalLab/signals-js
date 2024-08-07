@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "outDir": "./dist/",
+        "outDir": "./pkg/",
         "noImplicitAny": true,
         "module": "es6",
         "target": "es5",
@@ -10,6 +10,6 @@
         "allowSyntheticDefaultImports": true
     },
     "include": [
-        "./lib/graph"
+        "src"
     ]
 }

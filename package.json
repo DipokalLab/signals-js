@@ -10,8 +10,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "concurrently \"npm run build:wasm\" \"npm run build:ts\"",
-    "build:wasm": "cd lib && wasm-pack build --scope dipokalhhj",
-    "build:ts": "webpack --mode=development",
+    "build:wasm": "wasm-pack build --release",
+    "build:ts": "tsc",
     "dev": "cd example && npm run serve"
   },
   "repository": {
