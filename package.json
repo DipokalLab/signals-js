@@ -3,14 +3,14 @@
   "name": "signals-js",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "./pkg",
   "directories": {
     "lib": "lib"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "concurrently \"npm run build:wasm\" \"npm run build:ts\"",
-    "build:wasm": "wasm-pack build --release",
+    "build": "concurrently \"npm run build:wasm\" \"vite build\"",
+    "build:wasm": "wasm-pack build --release --target bundler",
     "build:ts": "tsc",
     "dev": "cd example && npm run serve"
   },
@@ -25,9 +25,12 @@
   },
   "homepage": "https://github.com/DipokalLab/signals-js#readme",
   "dependencies": {
-    "ts-loader": "^9.5.1"
+    "ts-loader": "^9.5.1",
+    "vite": "^5.4.0",
+    "vite-plugin-top-level-await": "^1.4.4"
   },
   "devDependencies": {
+    "vite-plugin-wasm": "^3.3.0",
     "webpack-cli": "^5.1.4"
   }
 }

@@ -32,8 +32,12 @@ Install pkg
 cd example && npm install ../pkg
 ```
 
-`cd example && npm run serve` or `npm run dev`
+and `cd example && npm run dev`
 
 ## Reference
 
 [Cooley-Tukey FFT Algorithms](https://people.scs.carleton.ca/~maheshwa/courses/5703COMP/16Fall/FFT_Report.pdf)
+
+## Contributors
+
+- DipokalLab(maintainer)

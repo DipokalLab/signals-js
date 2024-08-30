@@ -2,14 +2,14 @@
     "compilerOptions": {
         "outDir": "./pkg/",
         "noImplicitAny": true,
-        "module": "es6",
+        "module": "es2015",
         "target": "es5",
-        "jsx": "react",
         "allowJs": true,
         "moduleResolution": "node",
         "allowSyntheticDefaultImports": true
     },
     "include": [
-        "src"
+        "src",
+        "pkg"
     ]
 }
