@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./App.css";
-import { FFT } from "../../dist/index.es";
+import { FFT, RealtimeChart } from "../../dist/index.es";
 
 import { Line } from "react-chartjs-2";
 
@@ -78,6 +78,7 @@ function LineGraph({ data, title = "" }: { data: number[]; title?: string }) {
 function App() {
   const [originArray, setOriginArray] = useState<number[]>([]);
   const [fftArray, setFFTArray] = useState<number[]>([]);
+  const canvasRef: any = useRef();
 
   useEffect(() => {
     let fftArray = new Float64Array(2 ** 12);
@@ -93,12 +94,19 @@ function App() {
       console.log(fftArray, el);
       setFFTArray([].slice.call(el));
     });
+
+    const ctx = canvasRef.current.getContext("2d");
+    const chart = new RealtimeChart(ctx);
+
+    chart.init(600, 400);
   }, []);
 
   return (
     <>
       <LineGraph data={originArray}></LineGraph>
       <LineGraph data={fftArray}></LineGraph>
+
+      <canvas ref={canvasRef} width={600} height={400}></canvas>
     </>
   );
 }

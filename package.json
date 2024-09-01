@@ -12,7 +12,7 @@
     "build": "concurrently \"npm run build:wasm\" \"vite build\"",
     "build:wasm": "wasm-pack build --release --target bundler",
     "build:ts": "tsc",
-    "dev": "cd example && npm run serve"
+    "dev": "cd example && npm run dev"
   },
   "repository": {
     "type": "git",
@@ -30,6 +30,7 @@
     "vite-plugin-top-level-await": "^1.4.4"
   },
   "devDependencies": {
+    "vite-plugin-dts": "^4.0.3",
     "vite-plugin-wasm": "^3.3.0",
     "webpack-cli": "^5.1.4"
   }

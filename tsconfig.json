@@ -1,15 +1,16 @@
 {
     "compilerOptions": {
-        "outDir": "./pkg/",
+        "outDir": "./dist/",
         "noImplicitAny": true,
-        "module": "es2015",
+        "module": "esnext",
         "target": "es5",
         "allowJs": true,
         "moduleResolution": "node",
-        "allowSyntheticDefaultImports": true
+        "allowSyntheticDefaultImports": true,
+        "declaration": true,
+        "isolatedModules": true
     },
     "include": [
-        "src",
-        "pkg"
+        "src"
     ]
 }
