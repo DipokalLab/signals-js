@@ -89,9 +89,11 @@ function App() {
     setOriginArray([].slice.call(fftArray));
 
     const asd = new FFT();
+    let arrayFFT = [];
 
     asd.run(fftArray, (el) => {
       console.log(fftArray, el);
+      arrayFFT = [].slice.call(el);
       setFFTArray([].slice.call(el));
     });
 
@@ -99,6 +101,8 @@ function App() {
     const chart = new RealtimeChart(ctx);
 
     chart.init(600, 400);
+
+    chart.draw(arrayFFT);
   }, []);
 
   return (
